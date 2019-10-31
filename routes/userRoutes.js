@@ -8,5 +8,6 @@ router
   .get(userController.getAllUsers)
   .post(userController.createUser);
 
+router.route('/:id').patch(userController.updateUser);
 //export router
 module.exports = router;
