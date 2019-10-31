@@ -1,29 +1,12 @@
 const express = require('express');
 const morgan = require('morgan');
-const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 
-dotenv.config({ path: './config.env' });
-
 const app = express();
+
 //Middleware
 app.use(express.json());
 app.use(morgan('dev'));
-
-const DB = process.env.DATABASE.replace(
-  '<PASSWORD>',
-  process.env.DATABASE_PASSWORD
-);
-
-//connect database
-mongoose
-  .connect(DB, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false
-  })
-  .then(() => console.log('DB connect successful!'))
-  .catch(err => console.log('DB connection failed!'));
 
 //Create schema for CRUD operations
 const userSchema = new mongoose.Schema({
@@ -83,8 +66,4 @@ app.post('/api/v1/users', async (req, res) => {
   }
 });
 
-//Start the server
-const port = process.env.PORT || 3000;
-app.listen(port, '127.0.0.1', () => {
-  console.log(`Listening on port ${port}`);
-});
+module.exports = app;
