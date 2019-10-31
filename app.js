@@ -28,10 +28,7 @@ const userSchema = new mongoose.Schema({
   }
 });
 
-//craete model
-const User = mongoose.model('User', userSchema);
-
-app.get('/api/v1/users', async (req, res) => {
+const getAllUsers = async (req, res) => {
   try {
     const allUsers = await User.find();
 
@@ -48,8 +45,9 @@ app.get('/api/v1/users', async (req, res) => {
       message: err
     });
   }
-});
-app.post('/api/v1/users', async (req, res) => {
+};
+
+const createUser = async (req, res) => {
   try {
     const newUser = await User.create(req.body);
     res.status(200).json({
@@ -64,6 +62,18 @@ app.post('/api/v1/users', async (req, res) => {
       message: err
     });
   }
-});
+};
+
+//craete model
+const User = mongoose.model('User', userSchema);
+
+//Route
+const userRouter = express.Router();
+app.use('/api/v1/users', userRouter);
+
+userRouter
+  .route('/')
+  .get(getAllUsers)
+  .post(createUser);
 
 module.exports = app;
