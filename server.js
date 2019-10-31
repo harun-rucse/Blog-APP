@@ -9,9 +9,7 @@ const DB =
 //connect database
 mongoose
   .connect(DB, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false
+    useNewUrlParser: true
   })
   .then(() => console.log('DB connect successful!'))
   .catch(err => console.log('DB connection failed!'));
