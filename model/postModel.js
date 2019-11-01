@@ -14,7 +14,7 @@ const postSchema = new mongoose.Schema({
   },
   postDescription: {
     type: String,
-    require: true,
+    require: [true, 'post must have a postDescription'],
     trim: true
   }
 });
